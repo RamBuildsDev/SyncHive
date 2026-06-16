@@ -428,7 +428,7 @@ async function executeLoop(
 
 // ─── DELAY ──────────────────────────────────────────────────────
 
-async function executeDelay(config: Record<string, unknown>): Promise<NodeResult> {
+async function executeDelay(config: Record<string, unknown>): Promise<NodeExecutionResult> {
   const unit   = String(config.unit   ?? "seconds");
   const amount = Number(config.amount ?? 5);
 

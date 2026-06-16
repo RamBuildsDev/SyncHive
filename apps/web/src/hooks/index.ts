@@ -96,7 +96,8 @@ export function useSSE(executionId: string | null) {
     // Open SSE connection to backend
     // Note: EventSource doesn't support custom headers natively.
     // We pass the token as a query param — api-gateway must accept ?token=
-    const url = `/api/executions/${executionId}/stream?token=${token}`
+    const apiOrigin = import.meta.env.VITE_API_ORIGIN?.replace(/\/$/, '') ?? ''
+    const url = `${apiOrigin}/api/executions/${executionId}/stream?token=${encodeURIComponent(token)}`
     const es = new EventSource(url)
     esRef.current = es
 

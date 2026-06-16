@@ -96,7 +96,7 @@ SyncHive is a self-hosted workflow automation platform similar to Zapier or n8n,
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/sivaram66/SyncHive.git
+git clone https://github.com/RamBuildsDev/SyncHive.git
 cd SyncHive
 npm install
 ```
@@ -136,6 +136,34 @@ npm run dev
 This starts all 4 apps simultaneously via Turborepo:
 - Web → http://localhost:3000
 - API Gateway → http://localhost:4000
+- Workflow Engine → BullMQ worker
+- Scheduler → cron trigger worker
+
+### 5. Deploy on Render
+
+The included `render.yaml` deploys the production stack as:
+
+- `synchive-api` — Express API + built React frontend
+- `synchive-worker` — BullMQ workflow execution worker
+- `synchive-scheduler` — cron trigger manager
+- `synchive-redis` — managed Redis
+
+Set these Render environment variables:
+
+```env
+DATABASE_URL=postgresql://...
+JWT_SECRET=...
+GROQ_API_KEY=gsk_...
+RESEND_API_KEY=re_...
+CORS_ORIGIN=https://your-render-url.onrender.com
+```
+
+If the frontend is deployed separately on Vercel/Netlify, set:
+
+```env
+VITE_API_ORIGIN=https://synchive-api.onrender.com
+CORS_ORIGIN=https://your-frontend-domain.vercel.app
+```
 
 ---
 

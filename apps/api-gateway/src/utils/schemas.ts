@@ -50,6 +50,7 @@ export const createNodeSchema = z.object({
     "ai",
     "transformer",
     "webhook",
+    "delay",
   ]),
   name: z.string().min(1).max(255).trim(),
   config: z.record(z.unknown()).default({}),

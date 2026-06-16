@@ -1,5 +1,5 @@
 # ============================================================
-# SyncHive — Workflow Engine (BullMQ Worker)
+# SyncHive — Scheduler (Cron Trigger Manager)
 # Runs TypeScript directly with tsx
 # ============================================================
 
@@ -23,8 +23,8 @@ COPY apps/web/package.json               ./apps/web/
 
 RUN npm install --legacy-peer-deps
 
-# Copy all source
+# Copy all source needed by the scheduler
 COPY packages/ ./packages/
-COPY apps/workflow-engine/ ./apps/workflow-engine/
+COPY apps/Scheduler/ ./apps/Scheduler/
 
-CMD ["npx", "tsx", "apps/workflow-engine/src/index.ts"]
+CMD ["npx", "tsx", "apps/Scheduler/src/index.ts"]

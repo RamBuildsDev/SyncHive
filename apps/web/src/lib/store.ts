@@ -102,11 +102,14 @@ export const useExecutionLiveStore = create<ExecutionLiveStore>((set) => ({
   nodeStatuses: {},
   setActiveExecution: (id) => set({ activeExecutionId: id, nodeStatuses: {} }),
   applySSEEvent: (event) => {
-    if (event.nodeId) {
+    const nodeId = event.data?.nodeId ?? event.nodeId
+    const status = event.data?.status ?? event.status
+
+    if (nodeId && status) {
       set((s) => ({
         nodeStatuses: {
           ...s.nodeStatuses,
-          [event.nodeId!]: event.status as StepStatus,
+          [nodeId]: status as StepStatus,
         },
       }))
     }

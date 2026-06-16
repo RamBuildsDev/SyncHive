@@ -19,6 +19,8 @@ COPY packages/shared-types/package.json  ./packages/shared-types/
 COPY packages/telemetry/package.json     ./packages/telemetry/
 COPY apps/api-gateway/package.json       ./apps/api-gateway/
 COPY apps/workflow-engine/package.json   ./apps/workflow-engine/
+COPY apps/Scheduler/package.json         ./apps/Scheduler/
+COPY apps/Scheduler/package-lock.json    ./apps/Scheduler/
 
 RUN npm install --legacy-peer-deps
 
@@ -43,6 +45,8 @@ COPY packages/shared-types/package.json  ./packages/shared-types/
 COPY packages/telemetry/package.json     ./packages/telemetry/
 COPY apps/api-gateway/package.json       ./apps/api-gateway/
 COPY apps/workflow-engine/package.json   ./apps/workflow-engine/
+COPY apps/Scheduler/package.json         ./apps/Scheduler/
+COPY apps/Scheduler/package-lock.json    ./apps/Scheduler/
 COPY apps/web/package.json               ./apps/web/
 
 # Install ALL dependencies (including devDeps for tsx)

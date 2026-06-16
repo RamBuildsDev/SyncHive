@@ -213,8 +213,8 @@ function StepEntry({ step, dur, index, total }: { step: StepExecution; dur: numb
           <span className={styles.stepAttempt}>#{step.attempt}</span>
           {dur != null && <span className={styles.stepDur}>{dur}ms</span>}
         </div>
-        {step.errorMessage && (
-          <div className={styles.stepError}>{step.errorMessage}</div>
+        {(step.error ?? step.errorMessage) && (
+          <div className={styles.stepError}>{step.error ?? step.errorMessage}</div>
         )}
         {hasOutput && (
           <button className={styles.jsonToggle} onClick={() => setShowJson(v => !v)}>

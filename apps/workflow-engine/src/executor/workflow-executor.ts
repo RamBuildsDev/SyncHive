@@ -382,7 +382,11 @@ async function executeNodeWithSpan(input: ExecuteNodeWithSpanInput): Promise<voi
         });
 
         try {
-          const result = await executeNode(node, nodeOutputs);
+          const result = await withTimeout(
+            executeNode(node, nodeOutputs),
+            node.timeoutMs,
+            `Node ${node.name} timed out after ${node.timeoutMs}ms`
+          );
 
           // If the integration returns success:false, treat it as a thrown error
           // so retry logic and failure tracking work correctly
@@ -429,6 +433,7 @@ async function executeNodeWithSpan(input: ExecuteNodeWithSpanInput): Promise<voi
 
         } catch (err) {
           const error = err instanceof Error ? err : new Error(String(err));
+          const timedOut = error instanceof TimeoutError;
           nodeSpan.recordException(error);
 
           const isLastAttempt = attempt === maxAttempts;
@@ -436,18 +441,18 @@ async function executeNodeWithSpan(input: ExecuteNodeWithSpanInput): Promise<voi
           if (isLastAttempt) {
             await db
               .update(stepExecutions)
-              .set({ status: 'failed', error: error.message, completedAt: new Date() })
+              .set({ status: timedOut ? 'timed_out' : 'failed', error: error.message, completedAt: new Date() })
               .where(eq(stepExecutions.id, stepRow.id));
 
             await publishExecutionEvent({
-              type: 'step:failed',
+              type: timedOut ? 'step:timed_out' : 'step:failed',
               executionId,
               workflowId,
               data: {
                 nodeId: node.id,
                 nodeName: node.name,
                 nodeType: node.type,
-                status: 'failed',
+                status: timedOut ? 'timed_out' : 'failed',
                 error: error.message,
                 attempt,
                 willRetry: false,
@@ -455,7 +460,7 @@ async function executeNodeWithSpan(input: ExecuteNodeWithSpanInput): Promise<voi
               timestamp: new Date().toISOString(),
             });
 
-            nodeSpan.setAttribute(SpanAttributes.STEP_STATUS, 'failed');
+            nodeSpan.setAttribute(SpanAttributes.STEP_STATUS, timedOut ? 'timed_out' : 'failed');
             nodeSpan.setStatus({ code: SpanStatusCode.ERROR, message: error.message });
             nodeSpan.end();
             throw err; // propagate — marks execution as failed
@@ -499,6 +504,24 @@ async function executeNodeWithSpan(input: ExecuteNodeWithSpanInput): Promise<voi
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+class TimeoutError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'TimeoutError';
+  }
+}
+
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number, message: string): Promise<T> {
+  if (!Number.isFinite(timeoutMs) || timeoutMs <= 0) return promise;
+
+  let timer: ReturnType<typeof setTimeout>;
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new TimeoutError(message)), timeoutMs);
+  });
+
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
 }
 
 /**

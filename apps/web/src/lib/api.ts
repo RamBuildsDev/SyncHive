@@ -5,8 +5,10 @@ import type {
 } from '@/types'
 
 /* ─── AXIOS INSTANCE ──────────────────────────────────────── */
+const apiOrigin = import.meta.env.VITE_API_ORIGIN?.replace(/\/$/, '') ?? ''
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: `${apiOrigin}/api`,
   headers: { 'Content-Type': 'application/json' },
 })
 

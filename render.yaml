@@ -54,7 +54,27 @@ services:
       - key: RESEND_API_KEY
         sync: false
 
-  # ── 3. Redis (Render managed) ─────────────────────────────────
+  # ── 3. Scheduler Worker (Cron trigger manager) ────────────────
+  - type: worker
+    name: synchive-scheduler
+    runtime: docker
+    dockerfilePath: ./infra/Dockerfile.scheduler
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: synchive-redis
+          property: connectionString
+      - key: SCHEDULER_SYNC_INTERVAL_MS
+        value: 300000
+
+  # ── 4. Redis (Render managed) ─────────────────────────────────
   - type: redis
     name: synchive-redis
     plan: free

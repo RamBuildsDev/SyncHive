@@ -23,7 +23,7 @@ const sdk = new NodeSDK({
     ),
   ],
 
-  propagator: new W3CTraceContextPropagator(),
+  textMapPropagator: new W3CTraceContextPropagator(),
 
   instrumentations: [
     getNodeAutoInstrumentations({

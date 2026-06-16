@@ -7,7 +7,8 @@ export type NodeType =
   | "loop"
   | "ai"
   | "transformer"
-  | "webhook";
+  | "webhook"
+  | "delay";
 export type ExecutionStatus =
   | "pending"
   | "queued"
@@ -39,6 +40,7 @@ export interface ApiResponse<T = unknown> {
     page?: number;
     limit?: number;
     total?: number;
+    hasMore?: boolean;
   };
 }
 

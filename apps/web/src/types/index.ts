@@ -95,7 +95,8 @@ export interface WorkflowExecution {
   triggerData: Record<string, unknown> | null
   startedAt: string | null
   completedAt: string | null
-  errorMessage: string | null
+  error: string | null
+  errorMessage?: string | null
   createdAt: string
 }
 
@@ -107,7 +108,8 @@ export interface StepExecution {
   status: StepStatus
   input: Record<string, unknown> | null
   output: Record<string, unknown> | null
-  errorMessage: string | null
+  error: string | null
+  errorMessage?: string | null
   startedAt: string | null
   completedAt: string | null
   createdAt: string
@@ -129,12 +131,21 @@ export type SseEventType =
   | 'step:completed'
   | 'step:failed'
   | 'step:retrying'
+  | 'step:timed_out'
 
 export interface SseEvent {
   type: SseEventType
   executionId: string
+  workflowId?: string
+  data?: {
+    nodeId?: string
+    nodeName?: string
+    nodeType?: string
+    status?: ExecutionStatus | StepStatus
+    error?: string
+    attempt?: number
+  }
   nodeId?: string
   status?: ExecutionStatus | StepStatus
-  error?: string
   timestamp: string
 }

@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { eq } from "drizzle-orm";
-import { parseExpression } from "cron-parser";
+import { CronExpressionParser } from "cron-parser";
 import { workflows, workflowNodes } from "@synchive/db";
 import { ApiResponse } from "@synchive/shared-types";
 import { authenticate } from "../middleware/auth";
@@ -57,7 +57,7 @@ schedulerRouter.get(
         if (!triggerNode) return [];
 
         const config = triggerNode.config as Record<string, unknown>;
-        const cronExpr = config.cronExpression as string | undefined;
+        const cronExpr = (config.cron ?? config.cronExpression) as string | undefined;
         const timezone = (config.timezone as string | undefined) ?? "UTC";
 
         let nextRun: string | null = null;
@@ -66,7 +66,7 @@ schedulerRouter.get(
 
         if (cronExpr) {
           try {
-            const interval = parseExpression(cronExpr, {
+            const interval = CronExpressionParser.parse(cronExpr, {
               tz: timezone,
               currentDate: new Date(),
             });

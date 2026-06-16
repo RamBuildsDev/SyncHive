@@ -152,8 +152,15 @@ executionRouter.get(
         res.writeHead(200, { "Content-Type": "text/event-stream", "Cache-Control": "no-cache", Connection: "keep-alive", "Access-Control-Allow-Origin": "*" });
 
         for (const step of steps) {
+          const eventType =
+            step.status === "completed" ? "step:completed" :
+            step.status === "retrying" ? "step:retrying" :
+            step.status === "timed_out" ? "step:timed_out" :
+            step.status === "failed" ? "step:failed" :
+            "step:completed";
+
           const event: ExecutionEvent = {
-            type: step.status === "completed" ? "step:completed" : "step:failed",
+            type: eventType,
             executionId, workflowId: execution.workflowId,
             data: { nodeId: step.nodeId, status: step.status, output: step.output as Record<string, unknown> | undefined, error: step.error || undefined, attempt: step.attempt },
             timestamp: (step.completedAt || step.startedAt || new Date()).toISOString(),

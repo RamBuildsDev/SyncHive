@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
-import { useAuthStore, useThemeStore } from '@/lib/store'
+import { useAuthStore } from '@/lib/store'
 import { TopNav } from '@/components/layout/TopNav'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { ToastProvider } from '@/components/layout/ToastProvider'
@@ -16,14 +16,6 @@ import { SchedulerPage } from '@/pages/SchedulerPage'
 import { LogsPage } from '@/pages/LogsPage'
 import { PlaceholderPage } from '@/pages/PlaceholderPage'
 import styles from './App.module.css'
-
-function ThemeSync() {
-  const { theme } = useThemeStore()
-  // Apply on every render — covers hydration from persisted store
-  document.documentElement.setAttribute('data-theme', theme)
-  document.documentElement.style.colorScheme = theme
-  return null
-}
 
 type BackendWakeStatus = 'checking' | 'waking' | 'ready' | 'error' | 'hidden'
 
@@ -114,7 +106,6 @@ function AppShell() {
 export default function App() {
   return (
     <BrowserRouter>
-      <ThemeSync />
       <BackendWakeNotice />
       <ToastProvider />
       <Routes>

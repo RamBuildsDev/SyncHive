@@ -20,7 +20,7 @@
   display: flex; align-items: center; gap: 7px;
   padding: 8px 18px;
   border-radius: 9px;
-  background: linear-gradient(135deg, var(--accent), #5B21B6);
+  background: var(--accent-gradient);
   border: none; color: #fff;
   font-family: var(--font); font-size: 13px; font-weight: 600;
   cursor: pointer; transition: all 0.18s;

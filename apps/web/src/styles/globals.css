@@ -1,184 +1,136 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-/* ─── TOKENS ───────────────────────────────────────────────── */
 :root {
-  --font: 'Inter', 'Geist', system-ui, sans-serif;
-  --mono: 'JetBrains Mono', 'Geist Mono', monospace;
+  --font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Backgrounds — pure black, no purple tint */
-  --bg-page:    #000000;
-  --bg-surface: #0A0A0A;
-  --bg-raised:  #111111;
-  --bg-overlay: #181818;
-  --bg-input:   #0D0D0D;
+  --bg-page: #fbfcff;
+  --bg-surface: #ffffff;
+  --bg-raised: #f7f7f6;
+  --bg-overlay: #ffffff;
+  --bg-input: #ffffff;
 
-  /* Glass — tinted slightly blue, not purple */
-  --glass:     rgba(255,255,255,0.02);
-  --glass2:    rgba(255,255,255,0.05);
-  --glass3:    rgba(255,255,255,0.09);
-  --glass-blur: 20px;
+  --glass: rgba(24, 24, 27, 0.025);
+  --glass2: rgba(24, 24, 27, 0.055);
+  --glass3: rgba(24, 24, 27, 0.09);
+  --glass-blur: 18px;
 
-  /* Borders */
-  --border-1: rgba(255,255,255,0.06);
-  --border-2: rgba(255,255,255,0.10);
-  --border-3: rgba(255,255,255,0.16);
-  --border-accent: rgba(59,130,246,0.45);
+  --border-1: rgba(24, 24, 27, 0.08);
+  --border-2: rgba(24, 24, 27, 0.12);
+  --border-3: rgba(24, 24, 27, 0.2);
+  --border-accent: rgba(24, 24, 27, 0.28);
 
-  /* Text — pure white based, no purple cast */
-  --t1: #FFFFFF;
-  --t2: rgba(255,255,255,0.75);
-  --t3: rgba(255,255,255,0.45);
-  --t4: rgba(255,255,255,0.25);
+  --t1: #0b0b0d;
+  --t2: rgba(11, 11, 13, 0.78);
+  --t3: rgba(11, 11, 13, 0.56);
+  --t4: rgba(11, 11, 13, 0.36);
 
-  /* Primary — Electric Blue (replaces violet entirely) */
-  --accent:        #2563EB;
-  --accent-light:  #60A5FA;
-  --accent-dim:    #1E3A8A;
-  --accent-glow:   rgba(37,99,235,0.35);
-  --accent-subtle: rgba(37,99,235,0.10);
-  --accent-border: rgba(59,130,246,0.30);
+  --accent: #6d5cff;
+  --accent-light: #4f7cff;
+  --accent-dim: #edeaff;
+  --accent-glow: rgba(109, 92, 255, 0.22);
+  --accent-subtle: rgba(109, 92, 255, 0.09);
+  --accent-border: rgba(109, 92, 255, 0.22);
+  --accent-gradient: linear-gradient(135deg, #3f67ff 0%, #7a4dff 100%);
 
-  /* Status */
-  --green:       #10B981;
-  --green-glow:  rgba(16,185,129,0.25);
-  --green-dim:   rgba(16,185,129,0.12);
-  --blue:        #3B82F6;
-  --blue-glow:   rgba(59,130,246,0.30);
-  --blue-dim:    rgba(59,130,246,0.12);
-  --amber:       #F59E0B;
-  --amber-glow:  rgba(245,158,11,0.25);
-  --red:         #EF4444;
-  --red-glow:    rgba(239,68,68,0.25);
-  --muted:       #6B7280;
+  --green: #127950;
+  --green-glow: rgba(18, 121, 80, 0.16);
+  --green-dim: rgba(18, 121, 80, 0.08);
+  --blue: #1f4fd8;
+  --blue-glow: rgba(31, 79, 216, 0.14);
+  --blue-dim: rgba(31, 79, 216, 0.08);
+  --amber: #a16207;
+  --amber-glow: rgba(161, 98, 7, 0.14);
+  --red: #c0362c;
+  --red-glow: rgba(192, 54, 44, 0.14);
+  --muted: #737373;
 
-  /* Node type colors */
-  --node-trigger:      #3B82F6;  /* blue     */
-  --node-trigger-bg:   rgba(59,130,246,0.15);
-  --node-http:         #06B6D4;  /* cyan     */
-  --node-http-bg:      rgba(6,182,212,0.12);
-  --node-email:        #F59E0B;  /* amber    */
-  --node-email-bg:     rgba(245,158,11,0.12);
-  --node-slack:        #10B981;  /* emerald  */
-  --node-slack-bg:     rgba(16,185,129,0.12);
-  --node-condition:    #EC4899;  /* pink     */
-  --node-condition-bg: rgba(236,72,153,0.12);
-  --node-ai:           #818CF8;  /* indigo   */
-  --node-ai-bg:        rgba(129,140,248,0.12);
-  --node-transform:    #14B8A6;  /* teal     */
-  --node-transform-bg: rgba(20,184,166,0.12);
-  --node-loop:         #F97316;  /* orange   */
-  --node-loop-bg:      rgba(249,115,22,0.12);
+  --node-trigger: #6d5cff;
+  --node-trigger-bg: rgba(109, 92, 255, 0.1);
+  --node-http: #3f7cff;
+  --node-http-bg: rgba(63, 124, 255, 0.1);
+  --node-email: #f08a24;
+  --node-email-bg: rgba(240, 138, 36, 0.1);
+  --node-slack: #166534;
+  --node-slack-bg: rgba(22, 101, 52, 0.07);
+  --node-condition: #9b5cff;
+  --node-condition-bg: rgba(155, 92, 255, 0.1);
+  --node-ai: #7c5bff;
+  --node-ai-bg: rgba(124, 91, 255, 0.1);
+  --node-transform: #0f766e;
+  --node-transform-bg: rgba(15, 118, 110, 0.07);
+  --node-loop: #92400e;
+  --node-loop-bg: rgba(146, 64, 14, 0.07);
 
-  /* Shadows */
-  --shadow-sm:   0 1px 3px rgba(0,0,0,0.8), 0 0 0 0.5px rgba(255,255,255,0.04);
-  --shadow-md:   0 4px 20px rgba(0,0,0,0.8), 0 0 0 0.5px rgba(255,255,255,0.06);
-  --shadow-lg:   0 8px 40px rgba(0,0,0,0.9), 0 0 0 0.5px rgba(255,255,255,0.06);
-  --shadow-glow: 0 0 0 1px var(--accent-border), 0 0 30px var(--accent-glow);
-  --shadow-node: 0 8px 32px rgba(0,0,0,0.8), 0 0 0 0.5px rgba(255,255,255,0.07);
-  --shadow-card: 0 2px 12px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(255,255,255,0.05);
-  --shadow-btn:  0 0 24px rgba(37,99,235,0.40), 0 2px 8px rgba(0,0,0,0.5);
+  --shadow-sm: 0 1px 2px rgba(24, 24, 27, 0.05), 0 0 0 1px rgba(24, 24, 27, 0.03);
+  --shadow-md: 0 12px 32px rgba(24, 24, 27, 0.08), 0 0 0 1px rgba(24, 24, 27, 0.04);
+  --shadow-lg: 0 24px 70px rgba(24, 24, 27, 0.12), 0 0 0 1px rgba(24, 24, 27, 0.06);
+  --shadow-glow: 0 0 0 1px var(--accent-border), 0 20px 50px var(--accent-glow);
+  --shadow-node: 0 12px 30px rgba(24, 24, 27, 0.08), 0 0 0 1px rgba(24, 24, 27, 0.06);
+  --shadow-card: 0 8px 26px rgba(24, 24, 27, 0.055), 0 0 0 1px rgba(24, 24, 27, 0.04);
+  --shadow-btn: 0 18px 36px rgba(89, 82, 255, 0.26);
 
-  /* Legacy aliases */
-  --page:        var(--bg-page);
-  --s1:          var(--bg-surface);
-  --s2:          var(--bg-raised);
-  --s3:          var(--bg-overlay);
-  --gb1:         var(--border-1);
-  --gb2:         var(--border-2);
-  --gb3:         var(--border-3);
+  --page: var(--bg-page);
+  --s1: var(--bg-surface);
+  --s2: var(--bg-raised);
+  --s3: var(--bg-overlay);
+  --gb1: var(--border-1);
+  --gb2: var(--border-2);
+  --gb3: var(--border-3);
   --card-shadow: var(--shadow-card);
   --node-shadow: var(--shadow-node);
-  --btn-shadow:  var(--shadow-btn);
+  --btn-shadow: var(--shadow-btn);
   --accent-hover: var(--accent-light);
 }
 
-/* ─── LIGHT MODE ──────────────────────────────────────────── */
-[data-theme='light'] {
-  /* Backgrounds */
-  --bg-page:    #F0F2F5;
-  --bg-surface: #FFFFFF;
-  --bg-raised:  #F7F8FA;
-  --bg-overlay: #EDEEF2;
-  --bg-input:   #FFFFFF;
-
-  /* Glass */
-  --glass:     rgba(0,0,0,0.03);
-  --glass2:    rgba(0,0,0,0.06);
-  --glass3:    rgba(0,0,0,0.10);
-
-  /* Borders */
-  --border-1: rgba(0,0,0,0.07);
-  --border-2: rgba(0,0,0,0.12);
-  --border-3: rgba(0,0,0,0.20);
-  --border-accent: rgba(37,99,235,0.35);
-
-  /* Text */
-  --t1: #0A0A0A;
-  --t2: rgba(10,10,10,0.75);
-  --t3: rgba(10,10,10,0.50);
-  --t4: rgba(10,10,10,0.30);
-
-  /* Accent stays blue */
-  --accent:        #2563EB;
-  --accent-light:  #1D4ED8;
-  --accent-dim:    #DBEAFE;
-  --accent-glow:   rgba(37,99,235,0.20);
-  --accent-subtle: rgba(37,99,235,0.08);
-  --accent-border: rgba(37,99,235,0.25);
-
-  /* Status */
-  --green:       #059669;
-  --green-dim:   rgba(5,150,105,0.10);
-  --blue:        #2563EB;
-  --blue-dim:    rgba(37,99,235,0.10);
-  --red:         #DC2626;
-  --amber:       #D97706;
-  --muted:       #9CA3AF;
-
-  /* Shadows */
-  --shadow-sm:   0 1px 3px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.05);
-  --shadow-md:   0 4px 16px rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.06);
-  --shadow-lg:   0 8px 32px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.06);
-  --shadow-node: 0 4px 20px rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.08);
-  --shadow-card: 0 2px 10px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.05);
-  --shadow-btn:  0 0 20px rgba(37,99,235,0.25), 0 2px 8px rgba(0,0,0,0.12);
-}
-
-/* ─── RESET ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body, #root { height: 100%; width: 100%; }
+html { color-scheme: light; }
 
 body {
   font-family: var(--font);
-  background: var(--bg-page);
+  background:
+    radial-gradient(circle at 82% 10%, rgba(124, 91, 255, 0.08), transparent 24rem),
+    radial-gradient(circle at 18% 0%, rgba(63, 124, 255, 0.07), transparent 22rem),
+    var(--bg-page);
   color: var(--t1);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: auto;
 }
 
-/* ─── SCROLLBAR ───────────────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; height: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--border-3); }
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
 
-/* ─── REACT FLOW ──────────────────────────────────────────── */
+::selection {
+  color: #ffffff;
+  background: var(--accent-gradient);
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(24, 24, 27, 0.18); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(24, 24, 27, 0.28); }
+
 .react-flow__background { background: transparent !important; }
 
 .react-flow__controls {
-  background: var(--bg-raised) !important;
-  border: 0.5px solid var(--border-2) !important;
-  border-radius: 10px !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid var(--border-1) !important;
+  border-radius: 12px !important;
   box-shadow: var(--shadow-md) !important;
   overflow: hidden;
 }
 .react-flow__controls-button {
   background: transparent !important;
-  border-bottom: 0.5px solid var(--border-1) !important;
+  border-bottom: 1px solid var(--border-1) !important;
   fill: var(--t3) !important;
-  width: 28px !important;
-  height: 28px !important;
+  width: 30px !important;
+  height: 30px !important;
   transition: all 0.15s !important;
 }
 .react-flow__controls-button:hover {
@@ -188,14 +140,14 @@ body {
 .react-flow__controls-button:last-child { border-bottom: none !important; }
 
 .react-flow__minimap {
-  background: var(--bg-raised) !important;
-  border: 0.5px solid var(--border-2) !important;
-  border-radius: 10px !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid var(--border-1) !important;
+  border-radius: 12px !important;
   box-shadow: var(--shadow-md) !important;
 }
 
 .react-flow__edge-path {
-  stroke: rgba(59,130,246,0.40) !important;
+  stroke: rgba(109, 92, 255, 0.36) !important;
   stroke-width: 1.5 !important;
 }
 .react-flow__edge.selected .react-flow__edge-path,
@@ -206,60 +158,53 @@ body {
 .react-flow__handle {
   width: 10px !important;
   height: 10px !important;
-  background: var(--bg-overlay) !important;
+  background: #ffffff !important;
   border: 1.5px solid var(--border-3) !important;
   border-radius: 50% !important;
   transition: all 0.15s !important;
 }
 .react-flow__handle:hover {
   background: var(--accent) !important;
-  border-color: var(--accent-light) !important;
-  box-shadow: 0 0 12px var(--accent-glow) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 4px var(--accent-subtle) !important;
 }
 
 .react-flow__node { cursor: grab; }
 .react-flow__node:active { cursor: grabbing; }
 
-/* ─── ANIMATIONS ──────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  to { opacity: 1; transform: translateY(0); }
 }
 @keyframes fadeIn {
   from { opacity: 0; }
-  to   { opacity: 1; }
+  to { opacity: 1; }
 }
 @keyframes pulse {
   0%, 100% { opacity: 1; }
-  50%       { opacity: 0.2; }
+  50% { opacity: 0.2; }
 }
 @keyframes pulseDot {
   0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 currentColor; }
-  50%       { transform: scale(1.2); opacity: 0.8; box-shadow: 0 0 0 4px transparent; }
+  50% { transform: scale(1.2); opacity: 0.8; box-shadow: 0 0 0 4px transparent; }
 }
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 @keyframes shimmer {
   from { background-position: -200% 0; }
-  to   { background-position: 200% 0; }
+  to { background-position: 200% 0; }
 }
 @keyframes nodeGlow {
   0%, 100% { box-shadow: var(--shadow-node), 0 0 20px var(--accent-glow); }
-  50%       { box-shadow: var(--shadow-node), 0 0 40px var(--accent-glow); }
+  50% { box-shadow: var(--shadow-node), 0 0 40px var(--accent-glow); }
 }
 @keyframes floatUp {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-6px); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 @keyframes gradientShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-
-.animate-fade-up  { animation: fadeUp  0.45s cubic-bezier(0.16,1,0.3,1) both; }
-.animate-fade-in  { animation: fadeIn  0.3s ease both; }
-.animate-pulse    { animation: pulse   1.8s ease-in-out infinite; }
-.animate-spin     { animation: spin    0.7s linear infinite; }
-.animate-float    { animation: floatUp 4s ease-in-out infinite; }

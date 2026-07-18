@@ -1,27 +1,7 @@
+
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { AuthUser, Workflow, WorkflowExecution, SseEvent, StepStatus } from '@/types'
-
-/* ─── THEME STORE ─────────────────────────────────────────── */
-interface ThemeStore {
-  theme: 'dark' | 'light'
-  toggleTheme: () => void
-}
-
-export const useThemeStore = create<ThemeStore>()(
-  persist(
-    (set, get) => ({
-      theme: 'dark',
-      toggleTheme: () => {
-        const next = get().theme === 'dark' ? 'light' : 'dark'
-        document.documentElement.setAttribute('data-theme', next)
-        document.documentElement.style.colorScheme = next
-        set({ theme: next })
-      },
-    }),
-    { name: 'sh_theme' }
-  )
-)
 
 /* ─── AUTH STORE ──────────────────────────────────────────── */
 interface AuthStore {

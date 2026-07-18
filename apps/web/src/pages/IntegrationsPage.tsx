@@ -50,7 +50,7 @@ const INTEGRATIONS = [
         <path d="M8.5 8.5V5M13.5 13.5v3"/>
       </svg>
     ),
-    color: '#7C3AED',
+    color: '#7C5BFF',
     nodeType: 'action',
     docs: 'https://api.slack.com/messaging/webhooks',
     fields: ['Webhook URL', 'Channel', 'Message'],

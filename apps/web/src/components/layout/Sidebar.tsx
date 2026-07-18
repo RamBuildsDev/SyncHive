@@ -72,13 +72,7 @@ export function Sidebar() {
     <aside className={styles.sidebar}>
       {/* Logo */}
       <div className={styles.logo}>
-        <div className={styles.logoIcon}>
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M9 1L16 5v8L9 17 2 13V5L9 1z" fill="rgba(124,58,237,0.2)" stroke="#7C3AED" strokeWidth="1.2" strokeLinejoin="round"/>
-            <path d="M9 5l3 2v4L9 13 6 11V7L9 5z" fill="#7C3AED" opacity="0.7"/>
-            <path d="M9 8v2M8 9h2" stroke="#fff" strokeWidth="1" strokeLinecap="round"/>
-          </svg>
-        </div>
+        <img className={styles.logoIcon} src="/brand/synchive-icon.svg" alt="" draggable={false} />
         <span className={styles.logoText}>SyncHive</span>
       </div>
 

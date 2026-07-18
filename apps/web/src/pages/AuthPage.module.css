@@ -1,16 +1,17 @@
-/* Auth page — glassmorphism card, blue accents */
 .page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-page);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(124, 91, 255, 0.08), transparent 22rem),
+    radial-gradient(circle at 80% 100%, rgba(63, 124, 255, 0.07), transparent 22rem),
+    var(--bg-page);
   position: relative;
   overflow: hidden;
   transition: background 0.3s;
 }
 
-/* Subtle blue orbs — not purple */
 .page::before {
   content: '';
   position: absolute;
@@ -18,7 +19,7 @@
   left: -200px;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(124, 91, 255, 0.1) 0%, transparent 70%);
   pointer-events: none;
 }
 .page::after {
@@ -28,7 +29,7 @@
   right: -150px;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(6,182,212,0.05) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(63, 124, 255, 0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -38,24 +39,23 @@
   background: var(--bg-surface);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--border-2);
+  border: 1px solid var(--border-1);
   border-radius: 20px;
   padding: 36px 32px 32px;
-  box-shadow: var(--shadow-lg), 0 0 0 0.5px var(--accent-border);
+  box-shadow: var(--shadow-lg);
   position: relative;
   z-index: 1;
   animation: fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) both;
   transition: background 0.3s, border-color 0.3s;
 }
-/* Blue top-edge glow — not purple */
 .card::before {
   content: '';
   position: absolute;
   inset: -1px;
   border-radius: 20px;
-  background: linear-gradient(135deg, rgba(37,99,235,0.20) 0%, transparent 50%);
+  background: linear-gradient(135deg, rgba(124, 91, 255, 0.14) 0%, transparent 52%);
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 1;
   z-index: -1;
 }
 
@@ -68,15 +68,10 @@
   margin-bottom: 28px;
 }
 .logoIcon {
-  width: 48px;
-  height: 48px;
-  background: var(--accent-subtle);
-  border: 1px solid var(--accent-border);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 24px var(--accent-glow);
+  width: 58px;
+  height: 58px;
+  display: block;
+  object-fit: contain;
 }
 .logoName {
   font-size: 18px;
@@ -129,12 +124,47 @@
   background: var(--bg-raised);
 }
 
-/* Blue button — not purple */
+.passwordField {
+  position: relative;
+}
+
+.passwordInput {
+  padding-right: 46px;
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 50%;
+  right: 9px;
+  width: 30px;
+  height: 30px;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--t4);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.passwordToggle:hover {
+  color: var(--t2);
+  background: var(--glass2);
+}
+
+.passwordToggle:focus-visible {
+  outline: 2px solid var(--accent-border);
+  outline-offset: 2px;
+}
+
 .submitBtn {
   width: 100%;
   height: 44px;
   margin-top: 6px;
-  background: linear-gradient(135deg, #2563EB 0%, #0EA5E9 100%);
+  background: var(--accent-gradient);
   border: none;
   border-radius: 10px;
   font-family: var(--font);
@@ -143,12 +173,12 @@
   color: #fff;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 0 24px rgba(37,99,235,0.35), 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: var(--shadow-btn), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   letter-spacing: 0.01em;
 }
 .submitBtn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 0 36px rgba(37,99,235,0.50), 0 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 16px 34px rgba(24, 24, 27, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.14);
 }
 .submitBtn:active { transform: translateY(0); }
 .submitBtn:disabled {
@@ -180,7 +210,7 @@
   margin-top: 8px;
 }
 .link {
-  color: var(--accent-light);
+  color: var(--accent);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.15s;
@@ -189,9 +219,9 @@
 
 .errorBox {
   padding: 10px 14px;
-  background: rgba(239,68,68,0.10);
-  border: 1px solid rgba(239,68,68,0.25);
+  background: rgba(192, 54, 44, 0.06);
+  border: 1px solid rgba(192, 54, 44, 0.18);
   border-radius: 8px;
   font-size: 13px;
-  color: #FCA5A5;
+  color: var(--red);
 }
